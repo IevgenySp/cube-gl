@@ -1,2 +1,2 @@
-# cubeGL
+# CubeGL
 WebGL cube
