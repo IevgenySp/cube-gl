@@ -1,34 +1,30 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { cubeGL } from "../webgl/cube.service";
 
 const WebGLContainer: React.FC<{ dimension: string }> = ({ dimension }) => {
     const containerRef = useRef<any>();
-    const [glService, setGlService] = useState<any>();
-    let cGlService: any = null;
-    let resizeHandler: any = null;
+    let cGlService = useRef<any>();
+    let resizeHandler: any = useRef<any>();
 
     useEffect(() => {
        if (containerRef.current) {
-           if (cGlService === null) {
-               cGlService = cubeGL(containerRef.current, Number(dimension));
-               setGlService(cGlService);
-               cGlService.raycastEnable();
-               cGlService.animate();
+           if (!cGlService.current) {
+               cGlService.current = cubeGL(containerRef.current, Number(dimension));
+               cGlService.current.raycastEnable();
+               cGlService.current.animate();
                //cGlService.render();
 
-               resizeHandler = () => {
-                   cGlService.resizeEnable(containerRef.current);
+               resizeHandler.current = () => {
+                   cGlService.current.resizeEnable(containerRef.current);
                };
 
-               window.addEventListener('resize', resizeHandler);
+               window.addEventListener('resize', resizeHandler.current);
            }
        }
-    }, []);
+    }, [dimension]);
 
     useEffect(() => {
-        if (glService) {
-            glService.updateDimension(Number(dimension));
-        }
+        cGlService.current.updateDimension(Number(dimension));
     }, [dimension]);
 
     return (<div className='webGLContainer' ref={containerRef} />)
