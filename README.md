@@ -1,7 +1,7 @@
 # CubeGL
 ## WebGL cube
 
-![Alt text](src/assets/cube.png?raw=true "CubeGL")
+![Alt text](src/assets/cube.png?raw=true =100x)
 
 ##### To run application:
 
