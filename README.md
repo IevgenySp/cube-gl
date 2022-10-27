@@ -7,7 +7,7 @@
 
 #### 1. npm install (in main directory)
 
-#### 2. npm run build
+#### 2. npm run start
 
 #### Application will be available on http://localhost:3000/ address
 
